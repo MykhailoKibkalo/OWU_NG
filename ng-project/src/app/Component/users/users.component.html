@@ -1,0 +1,9 @@
+<app-user *ngFor="let user of users" [user]="user" (chosenUser)="getChosenUser($event)" (chosenId)="getChosenId($event)"></app-user>
+<div *ngIf="singleUser">
+  {{singleUser.id}} - {{singleUser.email}} - {{singleUser.username}}
+  <button (click)="delUser()">Del</button>
+</div>
+<div *ngIf="userId" >
+<app-post [id]="userId"></app-post>
+  <button (click)="delPost()"> del</button>
+</div>
