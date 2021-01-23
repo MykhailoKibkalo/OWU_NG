@@ -19,8 +19,6 @@ export class FullUserComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(value => {
       this.id = value.id;
-      console.log(this.id);
-      console.log(this.users[this.id - 1].name);
     });
 
   }
