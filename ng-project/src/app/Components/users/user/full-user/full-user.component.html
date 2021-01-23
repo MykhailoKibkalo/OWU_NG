@@ -1,9 +1,10 @@
 <div [class]="['fullUser']">
   <div [class]="['oneUser']">
     Id: {{id}};
-    Name: {{users[id - 1].name}};
-    City: {{users[id - 1].address.city}};
-    Street: {{users[id - 1].address.street}} {{users[id - 1].address.number}}
+    Name: {{res.name}};
+    City: {{res.address.city}};
+    Street: {{res.address.street}}
+    {{res.address.number}}
   </div>
 </div>
 

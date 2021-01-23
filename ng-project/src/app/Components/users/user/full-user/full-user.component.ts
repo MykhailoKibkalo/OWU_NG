@@ -12,6 +12,7 @@ export class FullUserComponent implements OnInit {
 
   id: number;
   users: User[] = usersWithAddress;
+  res: any;
 
   constructor(private activatedRoute: ActivatedRoute) {
   }
@@ -19,8 +20,8 @@ export class FullUserComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(value => {
       this.id = value.id;
-      console.log(this.id);
-      console.log(this.users[this.id - 1].name);
+      this.res = this.users.filter(x => x.id === +this.id);
+      this.res = this.res[0];
     });
 
   }
