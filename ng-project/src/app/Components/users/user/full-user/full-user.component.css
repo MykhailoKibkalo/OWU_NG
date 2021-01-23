@@ -1,0 +1,7 @@
+.fullUser {
+  display: flex;
+}
+
+.oneUser {
+  border: black solid 3px;
+}
