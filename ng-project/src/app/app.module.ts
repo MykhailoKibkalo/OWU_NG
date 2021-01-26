@@ -1,43 +1,50 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-
 import {AppComponent} from './app.component';
 import {HttpClientModule} from '@angular/common/http';
-import {UsersComponent} from './Components/users/users.component';
-import {UserComponent} from './Components/users/user/user.component';
-import {RouterModule} from '@angular/router';
-import {HomeComponent} from './Components/home/home.component';
-import { FullUserComponent } from './Components/users/user/full-user/full-user.component';
+import {UsersComponent} from './components/users/users.component';
+import {RouterModule, Routes} from '@angular/router';
+import {UserResolveService} from './services/resolve/user-resolve.service';
+import {UserComponent} from './components/user/user.component';
+import {HeaderComponent} from './components/header/header/header.component';
+import {PostsComponent} from './components/posts/posts.component';
+import {PostComponent} from './components/post/post.component';
+import {PostResolveService} from './services/resolve/post-resolve.service';
+import {FulluserComponent} from './components/fulluser/fulluser.component';
+import {FullUserResolveService} from './services/resolve/full-user-resolve.service';
 
+const routes: Routes = [
+  // {path: '', component: UsersComponent, resolve: {usersData: UserResolveService}}
+  {
+    path: '', component: HeaderComponent, children: [{
+      path: 'user', component: UsersComponent, resolve: {usersData: UserResolveService}, children: [{
+        path: ':id', component: FulluserComponent, resolve: {chosenUser: FullUserResolveService}
+      }]
+    },
+      {
+        path: 'post', component: PostsComponent, resolve: {postsData: PostResolveService}
+      }]
+  },
+  {
+    path: '**', redirectTo: '', pathMatch: 'full'
+  }
+];
 
 @NgModule({
   declarations: [
     AppComponent,
     UsersComponent,
     UserComponent,
-    HomeComponent,
-    FullUserComponent,
+    HeaderComponent,
+    PostsComponent,
+    PostComponent,
+    FulluserComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot([
-      {
-        path: 'link/users', component: UsersComponent, children: [
-          {
-            path: ':id', component: FullUserComponent
-          }
-        ]
-      },
-      {
-        path: 'link/home', component: HomeComponent
-      },
-      {
-        path: '**', redirectTo: '', pathMatch: 'full'
-      }
-    ])
+    RouterModule.forRoot(routes)
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
